@@ -1,0 +1,23 @@
+<idea-plugin>
+    <id>ma.leet.ft_norminette</id>
+    <name>Ft_norminette</name>
+    <vendor email="yez-zain@student.1337.ma" url="https://1337.ma">yez-zain</vendor>
+    <description><![CDATA[
+    <p>Simple plugin for highlighting 42 norm errors in C source and header files.</p>
+  ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.cidr.base</depends>
+    <depends>com.intellij.cidr.debugger</depends>
+    <depends>com.intellij.cidr.lang</depends>
+    <depends>com.intellij.clion</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <localInspection displayName="Norm errors"
+                         groupName="Norminette"
+                         groupPath="C/C++"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="ma.leet.ft_norminette.NormCodeInspection"/>
+    </extensions>
+</idea-plugin>
