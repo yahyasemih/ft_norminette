@@ -38,7 +38,6 @@ public class NormInspectionVisitor extends OCVisitor {
             return;
         }
 
-        Map<Integer, Integer> lineToOffsetMapping = getLineToOffsetMapping(file);
         try {
             Path tmpdir = Files.createTempDirectory("clion");
             Path path = Path.of(tmpdir + "/" + file.getName());
@@ -46,26 +45,41 @@ public class NormInspectionVisitor extends OCVisitor {
 
             Process process = runtime.exec(new String[]{"norminette", path.toString()});
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            stdInput.readLine(); // Skip first line of norminette output
+            stdInput.readLine();
 
-            String line;
-            while ((line = stdInput.readLine()) != null) {
-                int lineNumber = parseLineNumber(line);
-                int startOffset = lineToOffsetMapping.get(lineNumber);
-                int endOffset = lineToOffsetMapping.getOrDefault(lineNumber + 1, file.getTextLength() + 1) - 1;
-                int errorIndex = line.indexOf("):");
-
-                if (errorIndex != -1) {
-                    holder.registerProblem(file.getOriginalElement(),
-                            line.substring(errorIndex + 3),
-                            ProblemHighlightType.WEAK_WARNING,
-                            TextRange.create(startOffset, endOffset),
-                            (LocalQuickFix) null);
-                }
-            }
+            highlightNormErrors(file, stdInput);
+            stdInput.close();
             Files.deleteIfExists(path);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            holder.registerProblem(file,
+                    "Error while checking norm: " + e.getMessage(),
+                    ProblemHighlightType.ERROR,
+                    TextRange.create(0, file.getTextLength()),
+                    (LocalQuickFix) null);
+            e.printStackTrace();
+        }
+    }
+
+    private void highlightNormErrors(@NotNull OCFile file, BufferedReader stdInput) throws IOException {
+        Map<Integer, Integer> lineToOffsetMapping = getLineToOffsetMapping(file);
+        String line;
+
+        while ((line = stdInput.readLine()) != null) {
+            if (!line.startsWith("Error:")) {
+                continue;
+            }
+            int lineNumber = parseLineNumber(line);
+            int startOffset = lineToOffsetMapping.get(lineNumber);
+            int endOffset = lineToOffsetMapping.getOrDefault(lineNumber + 1, file.getTextLength() + 1) - 1;
+            int errorIndex = line.indexOf("):");
+
+            if (errorIndex != -1) {
+                holder.registerProblem(file,
+                        line.substring(errorIndex + 3),
+                        ProblemHighlightType.WEAK_WARNING,
+                        TextRange.create(startOffset, endOffset),
+                        (LocalQuickFix) null);
+            }
         }
     }
 

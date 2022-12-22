@@ -1,10 +1,16 @@
 <idea-plugin>
     <id>ma.leet.ft_norminette</id>
     <name>Ft_norminette</name>
+    <version>1.1</version>
     <vendor email="yez-zain@student.1337.ma" url="https://1337.ma">yez-zain</vendor>
     <description><![CDATA[
     <p>Simple plugin for highlighting 42 norm errors in C source and header files.</p>
   ]]></description>
+    <change-notes><![CDATA[
+    <ul>
+        <li>Minor fixes and improvements.</li>
+    </ul>
+  ]]></change-notes>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.cidr.base</depends>

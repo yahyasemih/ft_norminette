@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "ma.leet"
-version = "1.0"
+version = "1.1"
 
 repositories {
     mavenCentral()
@@ -12,7 +12,7 @@ repositories {
 
 intellij {
     version.set("2022.2.1")
-    type.set("CL") // Target IDE Platform
+    type.set("CL")
 
     plugins.set(listOf(
         "com.intellij.clion",
