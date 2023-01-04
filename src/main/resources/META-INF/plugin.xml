@@ -1,20 +1,19 @@
 <idea-plugin>
     <id>ma.leet.ft_norminette</id>
     <name>Ft_norminette</name>
-    <version>1.1</version>
+    <version>1.2</version>
     <vendor email="yez-zain@student.1337.ma" url="https://1337.ma">yez-zain</vendor>
     <description><![CDATA[
     <p>Simple plugin for highlighting 42 norm errors in C source and header files.</p>
   ]]></description>
     <change-notes><![CDATA[
     <ul>
-        <li>Minor fixes and improvements.</li>
+        <li>Make plugin compatible with CLion 2022.3.1.</li>
     </ul>
   ]]></change-notes>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.cidr.base</depends>
-    <depends>com.intellij.cidr.debugger</depends>
     <depends>com.intellij.cidr.lang</depends>
     <depends>com.intellij.clion</depends>
 

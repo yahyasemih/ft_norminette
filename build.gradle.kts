@@ -4,21 +4,20 @@ plugins {
 }
 
 group = "ma.leet"
-version = "1.1"
+version = "1.2"
 
 repositories {
     mavenCentral()
 }
 
 intellij {
-    version.set("2022.2.1")
+    version.set("2022.3.1")
     type.set("CL")
 
     plugins.set(listOf(
         "com.intellij.clion",
         "com.intellij.cidr.base",
-        "com.intellij.cidr.lang",
-        "com.intellij.cidr.debugger"))
+        "com.intellij.cidr.lang"))
 }
 
 tasks {
