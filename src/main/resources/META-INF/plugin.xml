@@ -1,14 +1,15 @@
 <idea-plugin>
     <id>ma.leet.ft_norminette</id>
     <name>Ft_norminette</name>
-    <version>1.2</version>
+    <version>1.3</version>
     <vendor email="yez-zain@student.1337.ma" url="https://1337.ma">yez-zain</vendor>
     <description><![CDATA[
     <p>Simple plugin for highlighting 42 norm errors in C source and header files.</p>
   ]]></description>
     <change-notes><![CDATA[
     <ul>
-        <li>Make plugin compatible with CLion 2022.3.1.</li>
+        <li>Make plugin compatible with CLion 2022.3.2.</li>
+        <li>Add ability to specify the path to norminette command.</li>
     </ul>
   ]]></change-notes>
 
@@ -24,5 +25,14 @@
                          enabledByDefault="true"
                          level="WARNING"
                          implementationClass="ma.leet.ft_norminette.NormCodeInspection"/>
+    </extensions>
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationService
+                serviceImplementation="ma.leet.ft_norminette.AppSettingsState"/>
+        <applicationConfigurable
+                parentId="tools"
+                instance="ma.leet.ft_norminette.AppSettingsConfigurable"
+                id="ma.leet.ft_norminette.AppSettingsConfigurable"
+                displayName="42 Norminette Settings"/>
     </extensions>
 </idea-plugin>

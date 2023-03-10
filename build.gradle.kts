@@ -1,17 +1,17 @@
 plugins {
     id("java")
-    id("org.jetbrains.intellij") version "1.11.0"
+    id("org.jetbrains.intellij") version "1.13.2"
 }
 
 group = "ma.leet"
-version = "1.2"
+version = "1.3"
 
 repositories {
     mavenCentral()
 }
 
 intellij {
-    version.set("2022.3.1")
+    version.set("2022.3.2")
     type.set("CL")
 
     plugins.set(listOf(

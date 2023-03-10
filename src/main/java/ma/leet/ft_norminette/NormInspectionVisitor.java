@@ -3,6 +3,7 @@ package ma.leet.ft_norminette;
 import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.codeInspection.ProblemsHolder;
+import com.intellij.openapi.application.PathManager;
 import com.intellij.openapi.util.TextRange;
 import com.jetbrains.cidr.lang.psi.OCFile;
 import com.jetbrains.cidr.lang.psi.visitors.OCVisitor;
@@ -42,8 +43,15 @@ public class NormInspectionVisitor extends OCVisitor {
             Path tmpdir = Files.createTempDirectory("clion");
             Path path = Path.of(tmpdir + "/" + file.getName());
             Files.writeString(path, file.getText());
+            Settings settings = new Settings(PathManager.getOptionsPath());
+            String norm = settings.getPath();
 
-            Process process = runtime.exec(new String[]{"norminette", path.toString()});
+            if (norm == null) {
+                norm = "norminette";
+            } else if (norm.contains("$USER_HOME$")) {
+                norm = norm.replace("$USER_HOME$", System.getenv("HOME"));
+            }
+            Process process = runtime.exec(new String[]{norm, path.toString()});
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
             stdInput.readLine();
 
