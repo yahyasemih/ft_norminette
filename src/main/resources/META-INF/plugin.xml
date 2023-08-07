@@ -1,14 +1,14 @@
 <idea-plugin>
     <id>ma.leet.ft_norminette</id>
     <name>Ft_norminette</name>
-    <version>1.4</version>
-    <vendor email="yez-zain@student.1337.ma" url="https://1337.ma">yez-zain</vendor>
+    <version>1.5</version>
+    <vendor email="yez-zain@student.1337.ma" url="https://cv.42.fr/yez-zain">yez-zain</vendor>
     <description><![CDATA[
     <p>Simple plugin for highlighting 42 norm errors in C source and header files.</p>
   ]]></description>
     <change-notes><![CDATA[
     <ul>
-        <li>Make plugin compatible with CLion 2023.1.1.</li>
+        <li>Make plugin compatible with CLion 2023.2.</li>
     </ul>
   ]]></change-notes>
 

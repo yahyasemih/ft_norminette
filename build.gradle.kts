@@ -1,17 +1,17 @@
 plugins {
     id("java")
-    id("org.jetbrains.intellij") version "1.13.2"
+    id("org.jetbrains.intellij") version "1.15.0"
 }
 
 group = "ma.leet"
-version = "1.4"
+version = "1.5"
 
 repositories {
     mavenCentral()
 }
 
 intellij {
-    version.set("2022.3.2")
+    version.set("2023.2")
     type.set("CL")
 
     plugins.set(listOf(
@@ -28,7 +28,7 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("222")
-        untilBuild.set("231.*")
+        untilBuild.set("232.*")
     }
 
     signPlugin {
