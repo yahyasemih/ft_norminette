@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "ma.leet"
-version = "1.8"
+version = "1.9"
 
 repositories {
     mavenCentral()
@@ -28,7 +28,7 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("222")
-        untilBuild.set("233.14475.31")
+        untilBuild.set("241.*")
     }
 
     signPlugin {
