@@ -12,7 +12,7 @@ import java.util.regex.PatternSyntaxException;
 
 public class AppSettingsComponent {
 
-    private static final String PATH_REGEX = "^(/([a-zA-Z_0-9-.]*/)*)*(norminette)$";
+    private static final String PATH_REGEX = "^((/([a-zA-Z_0-9-.]*/)*)*(norminette)|(python[0-9.]* -m norminette))( [0-9A-Za-z_-]+)*$";
 
     private final JPanel myMainPanel;
     private final JBTextField pathText = new JBTextField();
