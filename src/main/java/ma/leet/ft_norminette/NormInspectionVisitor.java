@@ -14,7 +14,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class NormInspectionVisitor extends OCVisitor {
@@ -48,15 +51,33 @@ public class NormInspectionVisitor extends OCVisitor {
 
             if (norm == null) {
                 norm = "norminette";
-            } else if (norm.contains("$USER_HOME$")) {
+            } else if (norm.contains("$USER_HOME$") && System.getenv("HOME") != null) {
                 norm = norm.replace("$USER_HOME$", System.getenv("HOME"));
             }
-            Process process = runtime.exec(new String[]{norm, path.toString()});
-            BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            stdInput.readLine();
+            List<String> args = new ArrayList<>(Arrays.stream(norm.split(" ")).toList());
+            args.add(path.toString());
 
-            highlightNormErrors(file, stdInput);
+            Process process = runtime.exec(args.toArray(new String[0]));
+            BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+
+            String line = stdError.readLine();
+            if (line != null) {
+                String errorLine = line;
+                while ((line = stdError.readLine()) != null) {
+                    errorLine = line;
+                }
+                holder.registerProblem(file,
+                        "Error while checking norm: " + errorLine,
+                        ProblemHighlightType.ERROR,
+                        TextRange.create(0, file.getTextLength()),
+                        (LocalQuickFix) null);
+            } else {
+                stdInput.readLine();
+                highlightNormErrors(file, stdInput);
+            }
             stdInput.close();
+            stdError.close();
             Files.deleteIfExists(path);
         } catch (IOException e) {
             holder.registerProblem(file,

@@ -1,14 +1,15 @@
 <idea-plugin>
     <id>ma.leet.ft_norminette</id>
     <name>Ft_norminette</name>
-    <version>1.10</version>
-    <vendor email="yezzainabi@gmail.com" url="https://cv.42.fr/yez-zain">Yahya EZ-ZAINABI</vendor>
+    <version>1.11</version>
+    <vendor email="yezzainabi@gmail.com" url="https://companies.intra.42.fr/fr/resumes/yez-zain">Yahya EZ-ZAINABI</vendor>
     <description><![CDATA[
     <p>Simple plugin for highlighting 42 norm errors in C source and header files.</p>
   ]]></description>
     <change-notes><![CDATA[
     <ul>
-        <li>Make plugin compatible with CLion 2024.2.</li>
+        <li>Add possibility to use `python -m norminette`(for Windows users for example).</li>
+        <li>Add support for norminette arguments.</li>
     </ul>
   ]]></change-notes>
 
