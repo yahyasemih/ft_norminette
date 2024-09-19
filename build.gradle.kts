@@ -4,14 +4,14 @@ plugins {
 }
 
 group = "ma.leet"
-version = "1.11"
+version = "1.12"
 
 repositories {
     mavenCentral()
 }
 
 intellij {
-    version.set("2023.3")
+    version.set("LATEST-EAP-SNAPSHOT")
     type.set("CL")
 
     plugins.set(listOf(
@@ -28,7 +28,6 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("222")
-        untilBuild.set("242.*")
     }
 
     signPlugin {
