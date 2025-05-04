@@ -1,14 +1,14 @@
 <idea-plugin>
     <id>ma.leet.ft_norminette</id>
     <name>Ft_norminette</name>
-    <version>1.12</version>
+    <version>1.14</version>
     <vendor email="yezzainabi@gmail.com" url="https://companies.intra.42.fr/fr/resumes/yez-zain">Yahya EZ-ZAINABI</vendor>
     <description><![CDATA[
     <p>Simple plugin for highlighting 42 norm errors in C source and header files.</p>
   ]]></description>
     <change-notes><![CDATA[
     <ul>
-        <li>Remove `Build Until` limit.</li>
+        <li>Made `Build Until` unlimited.</li>
     </ul>
   ]]></change-notes>
 
