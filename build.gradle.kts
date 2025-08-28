@@ -1,23 +1,23 @@
 plugins {
     id("java")
-    id("org.jetbrains.intellij") version "1.15.0"
+    id("org.jetbrains.intellij.platform") version "2.7.2"
 }
 
 group = "ma.leet"
-version = "1.14"
+version = "1.15"
 
 repositories {
     mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+    }
 }
 
-intellij {
-    version.set("LATEST-EAP-SNAPSHOT")
-    type.set("CL")
-
-    plugins.set(listOf(
-        "com.intellij.clion",
-        "com.intellij.cidr.base",
-        "com.intellij.cidr.lang"))
+dependencies {
+    intellijPlatform {
+        create("CL", "2025.2")
+        bundledPlugins(providers.gradleProperty("bundledPlugins").map { it.split(',') })
+    }
 }
 
 tasks {
@@ -27,7 +27,7 @@ tasks {
     }
 
     patchPluginXml {
-        sinceBuild.set("222")
+        sinceBuild.set("252")
         untilBuild.set(provider { null })
     }
 
