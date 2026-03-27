@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "ma.leet"
-version = "1.15"
+version = "1.16"
 
 repositories {
     mavenCentral()
@@ -39,5 +39,9 @@ tasks {
 
     publishPlugin {
         token.set(System.getenv("PUBLISH_TOKEN"))
+    }
+
+    buildSearchableOptions {
+        enabled = false
     }
 }

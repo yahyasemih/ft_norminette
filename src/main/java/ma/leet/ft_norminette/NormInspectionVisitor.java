@@ -5,8 +5,8 @@ import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.openapi.application.PathManager;
 import com.intellij.openapi.util.TextRange;
-import com.jetbrains.cidr.lang.psi.OCFile;
-import com.jetbrains.cidr.lang.psi.visitors.OCVisitor;
+import com.intellij.psi.PsiElementVisitor;
+import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NormInspectionVisitor extends OCVisitor {
+public class NormInspectionVisitor extends PsiElementVisitor {
     private static final Runtime runtime = Runtime.getRuntime();
     private final ProblemsHolder holder;
 
@@ -29,8 +29,8 @@ public class NormInspectionVisitor extends OCVisitor {
     }
 
     @Override
-    public void visitOCFile(@NotNull OCFile file) {
-        super.visitOCFile(file);
+    public void visitFile(@NotNull PsiFile file) {
+        super.visitFile(file);
         if (!file.getName().endsWith(".c") && !file.getName().endsWith(".h")) {
             return;
         }
@@ -55,6 +55,7 @@ public class NormInspectionVisitor extends OCVisitor {
                 norm = norm.replace("$USER_HOME$", System.getenv("HOME"));
             }
             List<String> args = new ArrayList<>(Arrays.stream(norm.split(" ")).toList());
+            args.add("--no-colors");
             args.add(path.toString());
 
             Process process = runtime.exec(args.toArray(new String[0]));
@@ -89,7 +90,7 @@ public class NormInspectionVisitor extends OCVisitor {
         }
     }
 
-    private void highlightNormErrors(@NotNull OCFile file, BufferedReader stdInput) throws IOException {
+    private void highlightNormErrors(@NotNull PsiFile file, BufferedReader stdInput) throws IOException {
         Map<Integer, Integer> lineToOffsetMapping = getLineToOffsetMapping(file);
         String line;
 
@@ -121,7 +122,7 @@ public class NormInspectionVisitor extends OCVisitor {
         return Integer.parseInt(line.substring(columnIndex + 6, commaIndex).trim());
     }
 
-    private static Map<Integer, Integer> getLineToOffsetMapping(OCFile file) {
+    private static Map<Integer, Integer> getLineToOffsetMapping(PsiFile file) {
         Map<Integer, Integer> map = new HashMap<>();
         String text = file.getText();
         map.put(1, 0);
